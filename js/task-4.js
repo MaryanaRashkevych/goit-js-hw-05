@@ -1,41 +1,55 @@
-// Оголоси функцію getShippingCost(country), яка повинна перевіряти можливість доставки товару в країну користувача (параметр country) і повертати повідомлення про результат. Обов'язково використовуй інструкцію switch.
+// Напиши стрілочну функцію getTotalBalanceByGender(users, gender), яка прийматиме два параметра:
 
-// Формат рядка, що повертається "Shipping to <country> will cost <price> credits", де замість <country> і <price> необхідно підставити відповідні значення.
-
-// Список країн і вартість доставки:
-
-// China — 100 кредитів
-// Chile — 250 кредитів
-// Australia — 170 кредитів
-// Jamaica — 120 кредитів
-// Зі списку видно, що доставка можлива не скрізь. Якщо зазначена країна відсутня у списку, то функція повинна повернути рядок "Sorry, there is no delivery to your country".
+// перший параметр users — масив об’єктів користувачів,
+// другий параметр gender — рядок, що зберігає стать.
+// Функція має використовувати ланцюжок виклику методів та повертати загальний баланс користувачів (властивість balance), стать яких (властивість gender) збігається зі значенням параметра gender.
 
 // Візьми код нижче і встав після оголошення своєї функції для перевірки коректності її роботи. У консоль будуть виведені результати її роботи.
 
-function getShippingCost(country) {
-  let price = 0;
-  switch (country.toLowerCase()) {
-    case 'china':
-      price = 100;
-      break;
-    case 'chile':
-      price = 250;
-      break;
-    case 'australia':
-      price = 170;
-      break;
-    case 'jamaica':
-      price = 120;
-      break;
-    default:
-      return 'Sorry, there is no delivery to your country.';
-  }
-  return `Shipping to ${country} will cost ${price} credits`;
-}
+const getTotalBalanceByGender = (users, gender) => {
+  return users
+    .filter(user => user.gender === gender)
+    .reduce((total, score) => total + score.balance, 0);
+};
 
-console.log(getShippingCost('Australia')); // "Shipping to Australia will cost 170 credits"
-console.log(getShippingCost('Germany')); // "Sorry, there is no delivery to your country"
-console.log(getShippingCost('China')); // "Shipping to China will cost 100 credits"
-console.log(getShippingCost('Chile')); // "Shipping to Chile will cost 250 credits"
-console.log(getShippingCost('Jamaica')); // "Shipping to Jamaica will cost 120 credits"
-console.log(getShippingCost('Sweden')); // "Sorry, there is no delivery to your country"
+const clients = [
+  {
+    name: 'Moore Hensley',
+    gender: 'male',
+    balance: 2811,
+  },
+  {
+    name: 'Sharlene Bush',
+    gender: 'female',
+    balance: 3821,
+  },
+  {
+    name: 'Ross Vazquez',
+    gender: 'male',
+    balance: 3793,
+  },
+  {
+    name: 'Elma Head',
+    gender: 'female',
+    balance: 2278,
+  },
+  {
+    name: 'Carey Barr',
+    gender: 'male',
+    balance: 3951,
+  },
+  {
+    name: 'Blackburn Dotson',
+    gender: 'male',
+    balance: 1498,
+  },
+  {
+    name: 'Sheree Anthony',
+    gender: 'female',
+    balance: 2764,
+  },
+];
+
+console.log(getTotalBalanceByGender(clients, 'male')); // 12053
+
+console.log(getTotalBalanceByGender(clients, 'female')); // 8863
